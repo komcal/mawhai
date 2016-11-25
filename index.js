@@ -27,11 +27,12 @@ app.post('/webhook/', function (req, res) {
     let sender = event.sender.id
     if (event.message && event.message.text) {
       let text = event.message.text
-      console.log('-------------------------')
-      console.log(event)
-      console.log('-------------------------')
-      sendTextMessage(sender, 'Text received, echo: ' + text.substring(0, 200))
-      sendTextMessage(sender, 'meow meow~*')
+      if (text.substring(0, 200) === 'หาแมว') {
+        sendTextMessage(sender, 'ไม่บอกหรอก อิอิ')
+      } else {
+        sendTextMessage(sender, 'Text received, echo: ' + text.substring(0, 200))
+        sendTextMessage(sender, 'meow meow~*')
+      }
     }
   }
   res.sendStatus(200)
@@ -113,4 +114,3 @@ const port = process.env.PORT || 5000
 app.listen(port, function () {
   console.log('running on port', port)
 })
-
