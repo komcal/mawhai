@@ -28,7 +28,7 @@ app.post('/webhook/', function (req, res) {
     if (event.message && event.message.text) {
       let text = event.message.text
       if (text.substring(0, 200).indexOf('หาแมว') !== -1) {
-        sendTextMessage(sender, 'ไม่บอกหรอก อิอิ')
+        sendGenericMessage(sender)
       } else if (text.substring(0, 200).indexOf('test') !== -1) {
         sendGenericMessage(sender)
       } else {
@@ -62,33 +62,20 @@ function sendTextMessage (sender, text) {
   })
 }
 
-function sendGenericMessage(sender) {
+function sendGenericMessage (sender) {
   let messageData = {
     'attachment': {
       'type': 'template',
       'payload': {
         'template_type': 'generic',
         'elements': [{
-          'title': 'First card',
-          'subtitle': 'Element #1 of an hscroll',
-          'image_url': 'http://messengerdemo.parseapp.com/img/rift.png',
+          'title': 'Location',
+          'subtitle': 'Bangkhen',
+          'image_url': 'http://staticmap.openstreetmap.de/staticmap.php?center=13.8469763,100.5698991&zoom=18&size=865x512&maptype=mapnik',
           'buttons': [{
             'type': 'web_url',
-            'url': 'https://www.messenger.com',
-            'title': 'web url'
-          }, {
-            'type': 'postback',
-            'title': 'Postback',
-            'payload': 'Payload for first element in a generic bubble'
-          }]
-        }, {
-          'title': 'Second card',
-          'subtitle': 'Element #2 of an hscroll',
-          'image_url': 'http://messengerdemo.parseapp.com/img/gearvr.png',
-          'buttons': [{
-            'type': 'postback',
-            'title': 'Postback',
-            'payload': 'Payload for second element in a generic bubble'
+            'url': 'http://staticmap.openstreetmap.de/staticmap.php?center=13.8469763,100.5698991&zoom=16&size=865x512&maptype=mapnik',
+            'title': 'view full map'
           }]
         }]
       }
