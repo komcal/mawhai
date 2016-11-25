@@ -20,17 +20,23 @@ app.get('/', (req, res) => {
   res.send('hello world i am mawhai bot')
 })
 
-app.post('/webhook/', function (req, res) {
-  let messagingEvents = req.body.entry[0].messaging
-  for (let i = 0; i < messagingEvents.length; i++) {
-    let event = req.body.entry[0].messaging[i]
-    let sender = event.sender.id
-    if (event.message && event.message.text) {
-      let text = event.message.text
-      sendTextMessage(sender, 'Text received, echo: ' + text.substring(0, 200))
-    }
+// app.post('/webhook/', function (req, res) {
+//   let messagingEvents = req.body.entry[0].messaging
+//   for (let i = 0; i < messagingEvents.length; i++) {
+//     let event = req.body.entry[0].messaging[i]
+//     let sender = event.sender.id
+//     if (event.message && event.message.text) {
+//       let text = event.message.text
+//       sendTextMessage(sender, 'Text received, echo: ' + text.substring(0, 200))
+//     }
+//   }
+//   res.sendStatus(200)
+// })
+app.get('/webhook/', function (req, res) {
+  if (req.query['hub.verify_token'] === hubVerifyToken) {
+    res.send(req.query['hub.challenge'])
   }
-  res.sendStatus(200)
+  res.send('Error, wrong token')
 })
 
 function sendTextMessage (sender, text) {
