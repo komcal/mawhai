@@ -27,8 +27,10 @@ app.post('/webhook/', function (req, res) {
     let sender = event.sender.id
     if (event.message && event.message.text) {
       let text = event.message.text
-      if (text.substring(0, 200) === 'หาแมว') {
+      if (text.substring(0, 200).indexOf('หาแมว') !== -1) {
         sendTextMessage(sender, 'ไม่บอกหรอก อิอิ')
+      } else if (text.substring(0, 200).indexOf('test') !== -1) {
+        sendGenericMessage(sender)
       } else {
         sendTextMessage(sender, 'Text received, echo: ' + text.substring(0, 200))
         sendTextMessage(sender, 'meow meow~*')
