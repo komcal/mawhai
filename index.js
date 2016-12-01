@@ -30,8 +30,11 @@ app.post('/webhook/', function (req, res) {
       if (text.substring(0, 200).indexOf('หาแมว') !== -1) {
         sendGenericMessage(sender, 13.8469763, 100.5698991)
       } else {
-        sendTextMessage(sender, 'Text received, echo: ' + text.substring(0, 200))
         sendTextMessage(sender, 'meow meow~*')
+      }
+    } else if (event.postback && event.postback.payload) {
+      if (event.postback.payload.indexOf('หาเจอแล้ว') > -1) {
+        sendTextMessage(sender, 'ขอบคุณที่ใช้บริการน้า meow~*')
       }
     }
   }
@@ -75,6 +78,10 @@ function sendGenericMessage (sender, latitude, longitude) {
             'type': 'web_url',
             'url': `https://www.google.co.th/maps/@${latitude},${longitude},21z?hl=th`,
             'title': 'view full map'
+          }, {
+            'type': 'postback',
+            'title': 'หาเจอแล้ว',
+            'payload': 'หาเจอแล้ว'
           }]
         }]
       }
