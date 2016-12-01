@@ -6,7 +6,7 @@ const request = require('request')
 const app = express()
 const config = require('config')
 
-const hubVerifyToken = process.env.HUB_VERIFY_TOKEN || config.hubVerifyToken
+// const hubVerifyToken = process.env.HUB_VERIFY_TOKEN || config.hubVerifyToken
 const token = process.env.PAGE_ACCESS_TOKEN || config.pageToken
 
 // parse application/x-www-form-urlencoded
