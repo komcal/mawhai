@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 app.post('/location', (req, res) => {
   const { lat, long } = req.body
-  console.log(`la: ${lat}, long: ${long}`)
+  console.log(`lat: ${lat}, long: ${long}`)
   res.status(200).send({ message: 'Success' })
 })
 
