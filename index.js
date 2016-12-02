@@ -128,7 +128,7 @@ function sendGenericMessage (sender, location) {
           'image_url': `http://staticmap.openstreetmap.de/staticmap.php?center=${lat},${long}&zoom=${zoom}&size=865x512&maptype=mapnik`,
           'buttons': [{
             'type': 'web_url',
-            'url': `https://www.google.co.th/maps/@${lat},${long},21z?hl=th`,
+            'url': `http://maps.google.com/maps?q=loc:${lat},${long}`,
             'title': 'view full map'
           }, {
             'type': 'postback',
