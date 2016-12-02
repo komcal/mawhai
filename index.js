@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 const config = require('config')
+const fs = require('fs')
 
 // const hubVerifyToken = process.env.HUB_VERIFY_TOKEN || config.hubVerifyToken
 const token = process.env.PAGE_ACCESS_TOKEN || config.pageToken
@@ -23,18 +24,24 @@ app.get('/', (req, res) => {
 app.post('/location', (req, res) => {
   const { lat, long } = req.body
   console.log(`lat: ${lat}, long: ${long}`)
-  res.status(200).send({ message: 'Success' })
+  const data = { lat, long }
+  fs.writeFile('./data', JSON.stringify(data), (err) => {
+    if (err) {
+      res.status(500).send(err || { message: 'Internal Error' })
+    } else {
+      res.status(200).send({ message: 'Success' })
+    }
+  })
 })
 
 app.get('/location', (req, res) => {
-  const lat = 13.8469763
-  const long = 100.5698991
-  console.log(`la: ${lat}, long: ${long}`)
-  const result = {
-    lat,
-    long
-  }
-  res.status(200).send(result)
+  fs.readFile('./data', 'utf8', (err, data) => {
+    if (err) {
+      res.status(500).send(err || { message: 'Internal Error' })
+    } else {
+      res.status(200).send(JSON.parse(data))
+    }
+  })
 })
 
 app.post('/webhook/', function (req, res) {
