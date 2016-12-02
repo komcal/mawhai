@@ -65,7 +65,7 @@ function getData (resolve, reject) {
   })
 }
 
-let interval;
+let interval
 
 app.post('/webhook/', function (req, res) {
   let messagingEvents = req.body.entry[0].messaging
@@ -91,9 +91,9 @@ app.post('/webhook/', function (req, res) {
               sendGenericMessage(sender, location)
             }
           })
-        }, 2000);
+        }, 2000)
       } else if (text.substring(0, 200).indexOf('หยุดหา') !== -1) {
-        clearInterval(interval);
+        clearInterval(interval)
       } else {
         sendTextMessage(sender, 'meow meow~*')
       }
