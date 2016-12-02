@@ -44,6 +44,16 @@ app.get('/location', (req, res) => {
   })
 })
 
+function getData (fileName) {
+  fs.readFile(`./${fileName}`, 'utf8', (err, data) => {
+    if (err) {
+      return err
+    } else {
+      return JSON.parse(data)
+    }
+  })
+}
+
 app.post('/webhook/', function (req, res) {
   let messagingEvents = req.body.entry[0].messaging
   for (let i = 0; i < messagingEvents.length; i++) {
@@ -52,7 +62,10 @@ app.post('/webhook/', function (req, res) {
     if (event.message && event.message.text) {
       let text = event.message.text
       if (text.substring(0, 200).indexOf('หาแมว') !== -1) {
-        sendGenericMessage(sender, 13.8469763, 100.5698991)
+        const location = getData('data')
+        if (location.lat && location.long) {
+          sendGenericMessage(sender, location)
+        }
       } else {
         sendTextMessage(sender, 'meow meow~*')
       }
@@ -87,8 +100,9 @@ function sendTextMessage (sender, text) {
   })
 }
 
-function sendGenericMessage (sender, latitude, longitude) {
+function sendGenericMessage (sender, location) {
   const zoom = 18
+  const { lat, long } = location
   let messageData = {
     'attachment': {
       'type': 'template',
@@ -97,10 +111,10 @@ function sendGenericMessage (sender, latitude, longitude) {
         'elements': [{
           'title': 'Location',
           'subtitle': 'Bangkhen',
-          'image_url': `http://staticmap.openstreetmap.de/staticmap.php?center=${latitude},${longitude}&zoom=${zoom}&size=865x512&maptype=mapnik`,
+          'image_url': `http://staticmap.openstreetmap.de/staticmap.php?center=${lat},${long}&zoom=${zoom}&size=865x512&maptype=mapnik`,
           'buttons': [{
             'type': 'web_url',
-            'url': `https://www.google.co.th/maps/@${latitude},${longitude},21z?hl=th`,
+            'url': `https://www.google.co.th/maps/@${lat},${long},21z?hl=th`,
             'title': 'view full map'
           }, {
             'type': 'postback',
