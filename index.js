@@ -47,8 +47,14 @@ app.get('/location', (req, res) => {
 function getData (fileName) {
   fs.readFile(`./${fileName}`, 'utf8', (err, data) => {
     if (err) {
+      console.log('-----------------------')
+      console.log('error')
+      console.log('-----------------------')
       return err
     } else {
+      console.log('-----------------------')
+      console.log(data)
+      console.log('-----------------------')
       return JSON.parse(data)
     }
   })
@@ -63,6 +69,7 @@ app.post('/webhook/', function (req, res) {
       let text = event.message.text
       if (text.substring(0, 200).indexOf('หาแมว') !== -1) {
         const location = getData('data')
+        console.log('location: ', location)
         if (location.lat && location.long) {
           sendGenericMessage(sender, location)
         }
