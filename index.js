@@ -80,6 +80,16 @@ app.post('/webhook/', function (req, res) {
             sendGenericMessage(sender, location)
           }
         })
+      } else if (text.substring(0, 200).indexOf('หารัวๆ') !== -1) {
+        setInterval(() => {
+          const location = new Promise(getData)
+          location.then((location) => {
+            console.log('location: ', location)
+            if (location.lat && location.long) {
+              sendGenericMessage(sender, location)
+            }
+          })
+        }, 2000);
       } else {
         sendTextMessage(sender, 'meow meow~*')
       }
