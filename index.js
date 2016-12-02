@@ -81,7 +81,7 @@ app.post('/webhook/', function (req, res) {
           }
         })
       } else if (text.substring(0, 200).indexOf('หารัวๆ') !== -1) {
-        setInterval(() => {
+        var interval = setInterval(() => {
           const location = new Promise(getData)
           location.then((location) => {
             console.log('location: ', location)
@@ -89,7 +89,9 @@ app.post('/webhook/', function (req, res) {
               sendGenericMessage(sender, location)
             }
           })
-        }, 2000);
+        }, 10000);
+      } else if (text.substring(0, 200).indexOf('หยุดหา') !== -1) {
+        clearInterval(interval);
       } else {
         sendTextMessage(sender, 'meow meow~*')
       }
