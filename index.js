@@ -43,19 +43,24 @@ app.get('/location', (req, res) => {
     }
   })
 })
+app.get('/data', (req, res) => {
+  const location = new Promise(getData)
+  location.then((location) => {
+    if (location.lat && location.long) {
+      res.status(200).send(location)
+    }
+  })
+  .catch((err) => {
+    res.status(500).send(err || { message: 'Internal Error' })
+  })
+})
 
-function getData (fileName) {
-  fs.readFile(`./${fileName}`, 'utf8', (err, data) => {
+function getData (resolve, reject) {
+  fs.readFile(`./data`, 'utf8', (err, data) => {
     if (err) {
-      console.log('-----------------------')
-      console.log('error')
-      console.log('-----------------------')
-      return err
+      reject(err)
     } else {
-      console.log('-----------------------')
-      console.log(data)
-      console.log('-----------------------')
-      return JSON.parse(data)
+      resolve(JSON.parse(data))
     }
   })
 }
@@ -68,11 +73,13 @@ app.post('/webhook/', function (req, res) {
     if (event.message && event.message.text) {
       let text = event.message.text
       if (text.substring(0, 200).indexOf('หาแมว') !== -1) {
-        const location = getData('data')
-        console.log('location: ', location)
-        if (location.lat && location.long) {
-          sendGenericMessage(sender, location)
-        }
+        const location = new Promise(getData)
+        location.then((location) => {
+          console.log('location: ', location)
+          if (location.lat && location.long) {
+            sendGenericMessage(sender, location)
+          }
+        })
       } else {
         sendTextMessage(sender, 'meow meow~*')
       }
