@@ -20,6 +20,23 @@ app.get('/', (req, res) => {
   res.send('hello world i am mawhai bot')
 })
 
+app.post('/location', (req, res) => {
+  const { lat, long } = req.body
+  console.log(`la: ${lat}, long: ${long}`)
+  res.status(200).send({ message: 'Success' })
+})
+
+app.get('/location', (req, res) => {
+  const lat = 13.8469763
+  const long = 100.5698991
+  console.log(`la: ${lat}, long: ${long}`)
+  const result = {
+    lat,
+    long
+  }
+  res.status(200).send(result)
+})
+
 app.post('/webhook/', function (req, res) {
   let messagingEvents = req.body.entry[0].messaging
   for (let i = 0; i < messagingEvents.length; i++) {
