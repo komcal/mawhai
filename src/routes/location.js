@@ -3,7 +3,7 @@ import fs from 'fs'
 
 const router = Router()
 
-router.get('/location', (req, res) => {
+router.get('/', (req, res) => {
   fs.readFile('./data', 'utf8', (err, data) => {
     if (err) {
       res.status(500).send(err || { message: 'Internal Error' })
@@ -13,7 +13,7 @@ router.get('/location', (req, res) => {
   })
 })
 
-router.post('/location', (req, res) => {
+router.post('/', (req, res) => {
   const { lat, long } = req.body
   console.log(`lat: ${lat}, long: ${long}`)
   const data = { lat, long }

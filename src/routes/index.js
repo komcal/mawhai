@@ -5,7 +5,7 @@ import webhook from './webhook'
 
 const router = Router()
 
-router.use('/sample', sample)
+router.use('/', sample)
 router.use('/location', location)
 router.use('/webhook', webhook)
 
