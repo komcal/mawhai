@@ -5,7 +5,7 @@ const router = Router()
 
 let interval
 
-router.post('/webhook/', function (req, res) {
+router.post('/', function (req, res) {
   let messagingEvents = req.body.entry[0].messaging
   for (let i = 0; i < messagingEvents.length; i++) {
     let event = req.body.entry[0].messaging[i]
