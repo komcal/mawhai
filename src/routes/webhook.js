@@ -18,12 +18,18 @@ router.post('/', function (req, res) {
           console.log('location: ', location)
           if (location.macaddress) {
             // sendGenericMessage(sender, location)
+            let hasAddress = false
             location.macaddress.map((address) => {
               if (address in macaddress) {
                 const text = `อยู่ในบริเวณ ${macaddress[address]}`
                 sendTextMessage(sender, text)
+                hasAddress = true
               }
             })
+            if (!hasAddress) {
+              const text = 'ไม่ยู้ววว'
+              sendTextMessage(sender, text)
+            }
           }
         })
       } else if (text.substring(0, 200).indexOf('หารัวๆ') !== -1) {
@@ -51,7 +57,7 @@ router.post('/', function (req, res) {
         } else if (text.substring(0, 200).indexOf('ไฟกระพริบ') !== -1) {
           changeMode(false, 1)
         }
-        sendTextMessage(sender, 'OK ครับ')
+        sendTextMessage(sender, 'OK เหมียว')
       } else {
         sendTextMessage(sender, 'meow meow~*')
       }
