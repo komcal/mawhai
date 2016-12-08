@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const { lat, long } = req.body
-  console.log(`body: ${req.body}`)
+  console.log(`body: ${req.body[0]}`)
   console.log(`lat: ${lat}, long: ${long}`)
   const data = { lat, long }
   fs.writeFile('./data', JSON.stringify(data), (err) => {
