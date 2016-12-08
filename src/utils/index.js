@@ -1,2 +1,2 @@
 export { sendTextMessage, sendGenericMessage } from './facebook'
-export { getData } from './data'
+export { getData, macaddress } from './data'
