@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { sendTextMessage, sendGenericMessage, getData, macaddress } from '../utils'
+import { sendTextMessage, sendGenericMessage, getData, changeMode, macaddress } from '../utils'
 
 const router = Router()
 
@@ -36,6 +36,20 @@ router.post('/', function (req, res) {
         }, 2000)
       } else if (text.substring(0, 200).indexOf('หยุดหา') !== -1) {
         clearInterval(interval)
+      } else if (text.substring(0, 200).indexOf('ไฟ') !== -1) {
+        if (text.substring(0, 200).indexOf('เปิดไฟ') !== -1) {
+          changeMode(1, false)
+        } else if (text.substring(0, 200).indexOf('ปิดไฟ') !== -1) {
+          changeMode(0, false)
+        } else if (text.substring(0, 200).indexOf('ไฟออโต้') !== -1) {
+          changeMode(2, false)
+        }
+        if (text.substring(0, 200).indexOf('ไฟไม่กระพริบ') !== -1) {
+          changeMode(false, 0)
+        } else if (text.substring(0, 200).indexOf('ไฟกระพริบ') !== -1) {
+          changeMode(false, 1)
+        }
+        sendTextMessage(sender, 'OK ครับ')
       } else {
         sendTextMessage(sender, 'meow meow~*')
       }
