@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
       res.status(500).send(err || { message: 'Internal Error' })
     } else {
       let {state, blink} = JSON.parse(data)
-      res.status(200).send(state + blink)
+      console.log("state " + state + " blink " + blink)
+      // res.status(200).send(state + blink)
     }
   })
 })
