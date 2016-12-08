@@ -14,10 +14,9 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { lat, long } = req.body
-  console.log(`body: ${JSON.stringify(req.body)}`)
-  console.log(`lat: ${lat}, long: ${long}`)
-  const data = { lat, long }
+  const { macaddress } = req.body
+  console.log(`mac address: ${macaddress}`)
+  const data = { macaddress }
   fs.writeFile('./data', JSON.stringify(data), (err) => {
     if (err) {
       res.status(500).send(err || { message: 'Internal Error' })

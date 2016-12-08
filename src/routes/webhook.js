@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { sendTextMessage, sendGenericMessage, getData, changeMode } from '../utils'
+import { sendTextMessage, sendGenericMessage, getData, changeMode, macaddress } from '../utils'
 
 const router = Router()
 
@@ -16,8 +16,10 @@ router.post('/', function (req, res) {
         const location = new Promise(getData)
         location.then((location) => {
           console.log('location: ', location)
-          if (location.lat && location.long) {
-            sendGenericMessage(sender, location)
+          if (location.macaddress) {
+            // sendGenericMessage(sender, location)
+            const text = `อยู่ในบริเวณ ${macaddress[location.macaddress]}`
+            sendTextMessage(sender, text)
           }
         })
       } else if (text.substring(0, 200).indexOf('หารัวๆ') !== -1) {
