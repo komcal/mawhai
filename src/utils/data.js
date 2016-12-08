@@ -5,7 +5,8 @@ export const getData = (resolve, reject) => {
     if (err) {
       reject(err)
     } else {
-      resolve(JSON.parse(data))
+      let {state, blink} = JSON.parse(data)
+      resolve(state + blink * 3)
     }
   })
 }

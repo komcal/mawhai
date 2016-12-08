@@ -40,9 +40,9 @@ router.post('/', function (req, res) {
         } else if (text.substring(0, 200).indexOf('ไฟออโต้') !== -1) {
           changeMode(2, false)
         }
-        if (text.substring(0, 200).indexOf('ไฟกระพริบ') !== -1) {
+        if (text.substring(0, 200).indexOf('ไฟไม่กระพริบ') !== -1) {
           changeMode(false, 0)
-        } else if (text.substring(0, 200).indexOf('ไฟไม่กระพริบ') !== -1) {
+        } else if (text.substring(0, 200).indexOf('ไฟกระพริบ') !== -1) {
           changeMode(false, 1)
         }
         sendTextMessage(sender, 'meow meow~*')
