@@ -6,7 +6,7 @@ export const changeMode = (nextState, nextBlink) => {
     if (err) {
       console.log('cannot read mode.txt')
     } else {
-      let { state, blink } = JSON.parse(data.mode)
+      let { state, blink } = JSON.parse(data)
       state = nextState !== false ? nextState : state
       blink = nextBlink !== false ? nextBlink : blink
       let mode = {'state': state, 'blink': blink}
