@@ -18,12 +18,18 @@ router.post('/', function (req, res) {
           console.log('location: ', location)
           if (location.macaddress) {
             // sendGenericMessage(sender, location)
+            let hasAddress = false
             location.macaddress.map((address) => {
               if (address in macaddress) {
                 const text = `อยู่ในบริเวณ ${macaddress[address]}`
                 sendTextMessage(sender, text)
+                hasAddress = true
               }
             })
+            if (!hasAddress) {
+              const text = `หาไม่เจอ`
+              sendTextMessage(sender, text)
+            }
           }
         })
       } else if (text.substring(0, 200).indexOf('หารัวๆ') !== -1) {
@@ -32,12 +38,18 @@ router.post('/', function (req, res) {
           location.then((location) => {
             console.log('location: ', location)
             if (location.macaddress) {
+              let hasAddress = false
               location.macaddress.map((address) => {
                 if (address in macaddress) {
                   const text = `อยู่ในบริเวณ ${macaddress[address]}`
                   sendTextMessage(sender, text)
+                  hasAddress = true
                 }
               })
+              if (!hasAddress) {
+                const text = `หาไม่เจอ`
+                sendTextMessage(sender, text)
+              }
             }
           })
         }, 2000)
