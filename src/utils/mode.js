@@ -1,6 +1,7 @@
 import fs from 'fs'
 
 export const changeMode = (nextState, nextBlink) => {
+  console.log(nextState, nextBlink)
   fs.readFile('./mode.txt', 'utf8', (err, data) => {
     if (err) {
       console.log('cannot read mode.txt')
