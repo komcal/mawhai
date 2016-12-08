@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
         }, 2000)
       } else if (text.substring(0, 200).indexOf('หยุดหา') !== -1) {
         clearInterval(interval)
-      } else {
+      } else if (text.substring(0, 200).indexOf('ไฟ') !== -1) {
         if (text.substring(0, 200).indexOf('เปิดไฟ') !== -1) {
           changeMode(1, false)
         } else if (text.substring(0, 200).indexOf('ปิดไฟ') !== -1) {
@@ -45,6 +45,8 @@ router.post('/', function (req, res) {
         } else if (text.substring(0, 200).indexOf('ไฟกระพริบ') !== -1) {
           changeMode(false, 1)
         }
+        sendTextMessage(sender, 'OK ครับ')
+      } else {
         sendTextMessage(sender, 'meow meow~*')
       }
     } else if (event.postback && event.postback.payload) {
