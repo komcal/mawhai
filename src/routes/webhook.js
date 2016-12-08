@@ -19,7 +19,7 @@ router.post('/', function (req, res) {
           if (location.macaddress) {
             // sendGenericMessage(sender, location)
             location.macaddress.map((address) => {
-              if (address !== 'undefined') {
+              if (address in macaddress) {
                 const text = `อยู่ในบริเวณ ${macaddress[address]}`
                 sendTextMessage(sender, text)
               }
