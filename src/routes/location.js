@@ -16,7 +16,8 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { macaddress } = req.body
   console.log(`mac address: ${macaddress}`)
-  const data = { macaddress }
+  const arr = macaddress.split(',')
+  const data = { macaddress: arr }
   fs.writeFile('./data', JSON.stringify(data), (err) => {
     if (err) {
       res.status(500).send(err || { message: 'Internal Error' })

@@ -18,8 +18,10 @@ router.post('/', function (req, res) {
           console.log('location: ', location)
           if (location.macaddress) {
             // sendGenericMessage(sender, location)
-            const text = `อยู่ในบริเวณ ${macaddress[location.macaddress]}`
-            sendTextMessage(sender, text)
+            location.macaddress.map((address) => {
+              const text = `อยู่ในบริเวณ ${macaddress[address]}`
+              sendTextMessage(sender, text)
+            })
           }
         })
       } else if (text.substring(0, 200).indexOf('หารัวๆ') !== -1) {
