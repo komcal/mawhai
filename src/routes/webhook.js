@@ -44,6 +44,8 @@ router.post('/', function (req, res) {
         }, 2000)
       } else if (text.substring(0, 200).indexOf('หยุดหา') !== -1) {
         clearInterval(interval)
+      } else if (text.substring(0, 200).indexOf('ขอบคุณ') !== -1) {
+        sendTextMessage(sender, 'ขอบคุณคับบบ meow~*')
       } else if (text.substring(0, 200).indexOf('ไฟ') !== -1) {
         if (text.substring(0, 200).indexOf('เปิดไฟ') !== -1) {
           changeMode(1, false)
