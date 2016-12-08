@@ -1,1 +1,1 @@
-{ "mode": 0 }
+{ "state": 0, "blink": 0  }
